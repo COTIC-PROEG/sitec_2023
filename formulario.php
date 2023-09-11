@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <div class="area-cabecalho">
         <div id="area-logo">
             <h1><span class="roxo">SITEC </span><span class="ano">2023</span></h1>
@@ -20,13 +19,13 @@
             <a href="index.php">Início</a> 
             <a href="formulario.php">Formulário</a> 
             <a href="consulta.php">Consulta</a>  
-        </div>
-           
+        </div>       
     </div>
+
     <div class="content">
-        <form id="form">
+        <form action="salvaFormulario.php" id="form">
             <h2 class="text">FORMULÁRIO DE CADASTRO</h2>
-            
+
             <div>
                 <input type="text" placeholder="Nome..." class="inputs required">
                 <span class="span-required">Praesent egestas Praesent egestas</span>

@@ -32,6 +32,10 @@ if (isset($_POST['botao_enviar'])) {
 
 
 
+    //---------------------------------------------------------------------------------------------
+    // Definição da solicitação SQL.
+    //---------------------------------------------------------------------------------------------
+
     $sql_usuario = "INSERT INTO usuario
     (
         nome,
@@ -44,6 +48,9 @@ if (isset($_POST['botao_enviar'])) {
         'password_hash($senha, PASSWORD_DEFAULT)'
     )";
 
+    //---------------------------------------------------------------------------------------------
+
+
 
     //---------------------------------------------------------------------------------------------
     // Execução da solicitação SQL e exibição do resultado.
@@ -52,6 +59,8 @@ if (isset($_POST['botao_enviar'])) {
     $solicitacaoSQLExecutadaComSucesso = $conexao->query($sql_usuario);
     if ($solicitacaoSQLExecutadaComSucesso == true) {
         echo "Cadastro realizado com sucesso!";
+        echo "<script>location.href='consulta.php';</script>";
+        exit();
     } else {
         echo "Erro na inserção na tabela 'usuario': " . $conexao->error;
     }
