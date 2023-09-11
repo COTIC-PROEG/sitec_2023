@@ -1,68 +1,64 @@
 <?php
 if (isset($_POST['botao_enviar'])) {
-    session_start();
-    extract($_POST);
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "sitec_2023";
-    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    if ($conn->connect_error) {
-        die("Falha na conex�o: " . $conn->connect_error);
-    }
+
+    //---------------------------------------------------------------------------------------------
+    // Extração das informações do formulário para variáveis.
+    //---------------------------------------------------------------------------------------------
     
-    $sql_pessoa = "INSERT INTO pessoa
+    $nome = $_POST['nome'];
+    $login = $_POST['login'];
+    $senha = $_POST['senha'];
+    // extract($_POST); // Equivalente.
+
+    //---------------------------------------------------------------------------------------------
+
+
+
+    //---------------------------------------------------------------------------------------------
+    // Configuração e conexão ao servidor e banco de dados.
+    //---------------------------------------------------------------------------------------------
+
+    $nomeDoServidor = "localhost";
+    $nomeDoUsuario = "root";
+    $senha = "";
+    $nomeDoBancoDeDados = "sitec_2023";
+    $conexao = new mysqli($nomeDoServidor, $nomeDoUsuario, $senha, $nomeDoBancoDeDados);
+    if ($conexao->connect_error)
+        die("Falha na conexão: " . $conexao->connect_error);
+
+    //---------------------------------------------------------------------------------------------
+
+
+
+    $sql_usuario = "INSERT INTO usuario
     (
         nome,
-        email,
-        telefone,
-        genero,
-        nascimento,
-        UF,
-        semestre,
-        descricao
+        login,
+        senha
     ) VALUES
     (
         '$nome',
-        '$email',
-        '$telefone',
-        '$genero',
-        '$nascimento',
-        '$UF',
-        '$semestre',
-        '$descricao'
+        '$login',
+        'password_hash($senha, PASSWORD_DEFAULT)'
     )";
-    
-    if ($conn->query($sql_pessoa) === TRUE) {
-        $last_inserted_id = $conn->insert_id; // Obt�m o ID da pessoa inserida
 
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        
-        $sql_usuario = "INSERT INTO usuario
-        (
-            idPessoa,
-            login,
-            senha
-        ) VALUES
-        (
-            '$last_inserted_id',
-            '$login',
-            '$senha_hash'
-        )";
 
-        if ($conn->query($sql_usuario) === TRUE) {
-            echo "Cadastro realizado com sucesso!";
-        } else {
-            echo "Erro na inser��o na tabela 'usuario': " . $conn->error;
-        }
+    //---------------------------------------------------------------------------------------------
+    // Execução da solicitação SQL e exibição do resultado.
+    //---------------------------------------------------------------------------------------------
+
+    $solicitacaoSQLExecutadaComSucesso = $conexao->query($sql_usuario);
+    if ($solicitacaoSQLExecutadaComSucesso == true) {
+        echo "Cadastro realizado com sucesso!";
     } else {
-        echo "Erro na inser��o na tabela 'pessoa': " . $conn->error;
+        echo "Erro na inserção na tabela 'usuario': " . $conexao->error;
     }
 
-    $conn->close();
-} else {
-    echo 'Nao entrou no if hein';
+    //---------------------------------------------------------------------------------------------
+
+
+
+    $conexao->close();
 }
-?>
