@@ -36,14 +36,10 @@ if (isset($_POST['botao_enviar'])) {
     // Definição da solicitação SQL.
     //---------------------------------------------------------------------------------------------
 
-    $sql_usuario = "INSERT INTO usuario
-    (
-        nome,
+    $sql_usuario = "INSERT INTO usuario (
         login,
-        senha
-    ) VALUES
-    (
-        '$nome',
+        senha,
+    ) VALUES (
         '$login',
         'password_hash($senha, PASSWORD_DEFAULT)'
     )";
@@ -67,7 +63,28 @@ if (isset($_POST['botao_enviar'])) {
 
     //---------------------------------------------------------------------------------------------
 
-
+    $idUsuario = $conexao->insert_id;
+    $sql_pessoa = "INSERT INTO pessoa (
+        idUsuario
+        nome,
+        email,
+        fone,
+        sexo,
+        dataNascimento,
+        estado,
+        semestre,
+        descricao
+    ) VALUES (
+        '$idUsuario',
+        '$nome',
+        '$email',
+        '$fone',
+        '$sexo',
+        '$dataNascimento',
+        '$estado',
+        '$semestre',
+        '$descricao',
+    )";
 
     $conexao->close();
 }
