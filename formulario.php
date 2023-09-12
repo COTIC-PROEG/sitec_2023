@@ -23,7 +23,7 @@
     </div>
 
     <div class="content">
-        <form action="salvaFormulario.php" id="form">
+        <form method="post" action="salvaFormulario.php" id="form">
             <h2 class="text">FORMULÁRIO DE CADASTRO</h2>
 
             <div>
@@ -81,9 +81,9 @@
                 <span class="span-required">Praesent egestas Praesent egestas</span>
             </div>
 
-            <textarea class="inputs" name="descricao" id="descricao" cols="25" rows="10" placeholder="Informações Adicionais..."></textarea><br>
+            <textarea class="inputs" name="descricao" id="descricao" cols="25" rows="10" maxlength="100" ="Informações Adicionais..."></textarea><br>
 
-            <button class="botao_enviar" type="submit">Enviar</button>
+            <button name="botao_enviar" value="1" class="botao_enviar" type="submit">Enviar</button>
         </form>
     </div>
 </body>

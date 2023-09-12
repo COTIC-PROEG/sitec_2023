@@ -7,10 +7,10 @@ if (isset($_POST['botao_enviar'])) {
     // Extração das informações do formulário para variáveis.
     //---------------------------------------------------------------------------------------------
     
-    $nome = $_POST['nome'];
-    $login = $_POST['login'];
-    $senha = $_POST['senha'];
-    // extract($_POST); // Equivalente.
+    // $nome = $_POST['nome'];
+    // $login = $_POST['login'];
+    // $senha = $_POST['senha'];
+    extract($_POST); // Equivalente.
 
     //---------------------------------------------------------------------------------------------
 
@@ -33,39 +33,30 @@ if (isset($_POST['botao_enviar'])) {
 
 
     //---------------------------------------------------------------------------------------------
-    // Definição da solicitação SQL.
+    // Definição e execução da solicitação SQL (Tabela Usuario).
     //---------------------------------------------------------------------------------------------
 
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
     $sql_usuario = "INSERT INTO usuario (
         login,
-        senha,
+        senha
     ) VALUES (
         '$login',
-        'password_hash($senha, PASSWORD_DEFAULT)'
+        '$senha_hash'
     )";
+    $solicitacaoSqlUsuarioExecutadaComSucesso = $conexao->query($sql_usuario);
+    
+    //---------------------------------------------------------------------------------------------
+    
+
 
     //---------------------------------------------------------------------------------------------
-
-
-
-    //---------------------------------------------------------------------------------------------
-    // Execução da solicitação SQL e exibição do resultado.
-    //---------------------------------------------------------------------------------------------
-
-    $solicitacaoSQLExecutadaComSucesso = $conexao->query($sql_usuario);
-    if ($solicitacaoSQLExecutadaComSucesso == true) {
-        echo "Cadastro realizado com sucesso!";
-        echo "<script>location.href='consulta.php';</script>";
-        exit();
-    } else {
-        echo "Erro na inserção na tabela 'usuario': " . $conexao->error;
-    }
-
+    // Definição e execução da solicitação SQL (Tabela Pessoa).
     //---------------------------------------------------------------------------------------------
 
     $idUsuario = $conexao->insert_id;
     $sql_pessoa = "INSERT INTO pessoa (
-        idUsuario
+        idUsuario,
         nome,
         email,
         fone,
@@ -83,8 +74,28 @@ if (isset($_POST['botao_enviar'])) {
         '$dataNascimento',
         '$estado',
         '$semestre',
-        '$descricao',
+        '$descricao'
     )";
+    $solicitacaoSqlPessoaExecutadaComSucesso = $conexao->query($sql_pessoa);
+
+    //---------------------------------------------------------------------------------------------
+
+
+
+    //---------------------------------------------------------------------------------------------
+    // Exibição do resultado das solicitações e redirecionamento para consulta.
+    //---------------------------------------------------------------------------------------------
+    
+    if (($solicitacaoSqlUsuarioExecutadaComSucesso && $solicitacaoSqlPessoaExecutadaComSucesso) == true) {
+        echo "Cadastro realizado com sucesso!";
+        echo "<script>location.href='consulta.php';</script>";
+        exit();
+    } else
+        echo "Erro na inserção dos dados': " . $conexao->error;
+    
+    //---------------------------------------------------------------------------------------------
+
+
 
     $conexao->close();
 }
