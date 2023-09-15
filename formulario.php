@@ -1,3 +1,8 @@
+<?php 
+include_once 'backend.php';
+Backend::salvar();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,7 +28,7 @@
     </div>
 
     <div class="content">
-        <form method="post" action="salvaFormulario.php" id="form">
+        <form method="post" action="consulta.php" id="form">
             <h2 class="text">FORMULÁRIO DE CADASTRO</h2>
 
             <div>

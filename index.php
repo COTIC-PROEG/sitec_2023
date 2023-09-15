@@ -40,26 +40,21 @@
             <!-- Login -->
             <main class="area_login">
                 <h2>LOGIN</h2>
-                <form class="formulario" method="POST" action="index.php">
+                <form class="formulario" method="POST" action="consulta.php">
                     <input type="text"  name="usuario" placeholder="Usuário" class="inputs" required>
                     <input type="password" name="senha" placeholder="Senha" class="inputs" required>
                     <span class="erro_login"></span>
                 </form>
                 <div class="botoes">
-                        <button class="botao_entrar" type="submit" value="entrar" onclick="consultarConta(event)">Entrar</button>
-                        <button class="botao_cadastrar" type="submit" value="cadastrar" onclick="cadastrarConta(event)">Cadastrar</button>
+                        <button class="botao_entrar" type="submit" value="entrar" >Entrar</button>
+                        <a class="botao_cadastrar" href="formulario.php">Cadastrar</a>
                 </div>
             </main>
         </div>
 
         <script>
 
-            function cadastrarConta(event) {
-                event.preventDefault();
-                window.location.href = "formulario.php";
-            }
-
-            function consultarConta(event) {
+            function validarInput(event) {
                 
                 const usuario = document.querySelector('input[name="usuario"]').value;
                 const senha = document.querySelector('input[name="senha"]').value;
@@ -68,8 +63,6 @@
                     const erroLogin = document.querySelector('.erro_login');
                     erroLogin.innerHTML = "Usuário ou senha inválidos!";
                     event.preventDefault();
-                } else {
-                    window.location.href = "consulta.php";
                 }
             }
 
