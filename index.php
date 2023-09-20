@@ -1,3 +1,9 @@
+<?php
+    include_once 'backend.php';
+    Backend::autenticar();
+    echo var_dump($_SESSION);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -40,15 +46,15 @@
             <!-- Login -->
             <main class="area_login">
                 <h2>LOGIN</h2>
-                <form class="formulario" method="POST" action="consulta.php">
-                    <input type="text"  name="usuario" placeholder="Usuário" class="inputs" required>
+                <form class="formulario" method="post" action="index.php">
+                    <input type="text" name="login" placeholder="Login" class="inputs" required>
                     <input type="password" name="senha" placeholder="Senha" class="inputs" required>
                     <span class="erro_login"></span>
-                </form>
-                <div class="botoes">
-                        <button class="botao_entrar" type="submit" value="entrar" >Entrar</button>
+                    <div class="botoes">
+                        <button name="botao_entrar" value="1" class="botao_entrar" type="submit">Entrar</button>
                         <a class="botao_cadastrar" href="formulario.php">Cadastrar</a>
-                </div>
+                    </div>
+                </form>
             </main>
         </div>
 

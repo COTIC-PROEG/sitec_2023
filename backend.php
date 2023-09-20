@@ -1,7 +1,7 @@
 <?php
 
 Class Backend {
-    public function conectar() {
+    public static function conectar() {
         // Configuração e conexão ao servidor e banco de dados.
 
         $nomeDoServidor = "localhost";
@@ -15,11 +15,40 @@ Class Backend {
             return $conexao;
     }
 
-    public function salvar() {
+    public static function autenticar() {
+        if (isset($_POST['botao_entrar'])) {
+            $conexao = self::conectar();
+            extract($_POST);
+
+            $sql_busca = "SELECT * FROM usuario
+                WHERE
+                login = '$login'
+            ";
+            
+            $resultadoSolicitacaoSqlBusca = $conexao->query($sql_busca);
+            if ($resultadoSolicitacaoSqlBusca == true) {
+                $vetorResultadoBusca = $resultadoSolicitacaoSqlBusca->fetch_array();
+                $senha_hash = $vetorResultadoBusca['senha'];
+                $senhaCorreta = password_verify($senha, $senha_hash);
+                if ($senhaCorreta == true) {
+
+                    $idUsuario = $vetorResultadoBusca['idUsuario'];
+                    session_start();
+                    $_SESSION['idUsuario'] = $idUsuario;
+
+                    echo "Seja bem vindo!";
+                    echo "<script>location.href='consulta.php';</script>";
+                    exit();
+                }
+            }
+        }
+    }
+
+    public static function salvar() {
         // Persistência dos dados do formulário no banco de dados.
 
         if (isset($_POST['botao_enviar'])) {
-            $conexao = $this->conectar();
+            $conexao = self::conectar();
         
             
             
@@ -55,7 +84,7 @@ Class Backend {
                 email,
                 fone,
                 sexo,
-                dataNascimento,
+                nascimento,
                 estado,
                 semestre,
                 descricao
@@ -65,7 +94,7 @@ Class Backend {
                 '$email',
                 '$fone',
                 '$sexo',
-                '$dataNascimento',
+                '$nascimento',
                 '$estado',
                 '$semestre',
                 '$descricao'
@@ -89,9 +118,14 @@ Class Backend {
         }
     }
 
-    public function buscar() {
-        $conexao = $this->conectar();
+    public static function buscar() {
+        $conexao = self::conectar();
+        session_start();
+        $idUsuario = $_SESSION['idUsuario'];
 
-        $sql_pessoa = "SELECT * FROM pessoa WHERE idUsuario = '$idUsuario'";
+        $sql_busca = "SELECT * FROM pessoa WHERE idUsuario = '$idUsuario'";
+        $solicitacaoSqlBuscaExecutadaComSucesso = $conexao->query($sql_busca);
+        $vetorResultadoBusca = $solicitacaoSqlBuscaExecutadaComSucesso->fetch_array();
+        return $vetorResultadoBusca;
     }
 }

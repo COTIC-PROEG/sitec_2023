@@ -1,6 +1,6 @@
 <?php 
-include_once 'backend.php';
-Backend::salvar();
+    include_once 'backend.php';
+    Backend::salvar();
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ Backend::salvar();
     </div>
 
     <div class="content">
-        <form method="post" action="consulta.php" id="form">
+        <form method="post" action="formulario.php" id="form">
             <h2 class="text">FORMULÁRIO DE CADASTRO</h2>
 
             <div>
@@ -54,8 +54,8 @@ Backend::salvar();
             </div>
 
             <div class="inputs required">
-                <label class="inputs required" for="dataNascimento">Nascimento:</label>
-                <input type='date' id='dtnasc' name='dataNascimento' class="inputs required">
+                <label class="inputs required" for="nascimento">Nascimento:</label>
+                <input type='date' id='dtnasc' name='nascimento' class="inputs required">
             </div>
 
             <div class="inputs required">

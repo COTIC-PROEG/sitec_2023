@@ -1,6 +1,6 @@
 <?php
-include_once 'backend.php';
-$dados = backend::buscar();
+    include_once 'backend.php';
+    $dados = backend::buscar();
 ?>
 
  <!DOCTYPE html>
@@ -31,36 +31,33 @@ $dados = backend::buscar();
      <div class="content">
 
          <fieldset>
-             <legend>
-                 <strong>
-                     <h2 class="text">CONSULTAR DADOS CADASTRAIS</h2>
-                 </strong>
-             </legend>
-             <p>
-                 <strong>Nome:</strong>
-             </p><br>
-             <p>
-                 <strong>E-mail:</strong>
-             </p><br>
-             <p>
-                 <strong>Telefone:</strong>
-             </p><br>
-             <p>
-                 <strong>Nome:</strong>
-             </p><br>
-             <p>
-                 <strong>Sexo:</strong>
-             </p><br>
-             <p>
-                 <strong>Nascimento:</strong>
-             </p><br>
-             <p>
-                 <strong>Semestre:</strong>
-             </p><br>
-             <p>
-                 <strong>Informações Adicionais:</strong>
-             </p><br>
-
+            <legend>
+                <h2 class="text">CONSULTAR DADOS CADASTRAIS</h2>
+            </legend>
+            <p>
+                Nome: <?php echo($dados['nome'])?>
+            </p>
+            <p>
+                E-mail: <?php echo($dados['email'])?>
+            </p>
+            <p>
+                Telefone: <?php echo($dados['fone'])?>
+            </p>
+            <p>
+                Sexo: <?php echo($dados['sexo'])?>
+            </p>
+            <p>
+                Nascimento: <?php echo($dados['nascimento'])?>
+            </p>
+            <p>
+                Estado: <?php echo($dados['estado'])?>
+            </p>
+            <p>
+                Semestre: <?php echo($dados['semestre'])?>
+            </p>
+            <p>
+                Informações Adicionais: <?php echo($dados['descricao'])?>
+            </p>
          </fieldset>
 
      </div>
