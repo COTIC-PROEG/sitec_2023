@@ -15,6 +15,28 @@ Class Backend {
             return $conexao;
     }
 
+    public static function sessionStart() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    public static function controleAcessoVisitante() {
+        self::sessionStart();
+        if (isset($_SESSION['idUsuario'])) {
+            echo "<script>location.href='inicio.php';</script>";
+            exit();
+        }
+    }
+
+    public static function controleAcessoVisitante() {
+        self::sessionStart();
+        if (! isset($_SESSION['idUsuario'])) {
+            echo "<script>location.href='index.php';</script>";
+            exit();
+        }
+    }
+
     public static function autenticar() {
         if (isset($_POST['botao_entrar'])) {
             $conexao = self::conectar();
@@ -33,7 +55,7 @@ Class Backend {
                 if ($senhaCorreta == true) {
 
                     $idUsuario = $vetorResultadoBusca['idUsuario'];
-                    session_start();
+                    self::sessionStart();
                     $_SESSION['idUsuario'] = $idUsuario;
 
                     echo "Seja bem vindo!";
@@ -120,7 +142,7 @@ Class Backend {
 
     public static function buscar() {
         $conexao = self::conectar();
-        session_start();
+        self::sessionStart();
         $idUsuario = $_SESSION['idUsuario'];
 
         $sql_busca = "SELECT * FROM pessoa WHERE idUsuario = '$idUsuario'";

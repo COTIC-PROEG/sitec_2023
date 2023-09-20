@@ -1,5 +1,6 @@
 <?php
     include_once 'backend.php';
+    Backend::controleAcessoUsuario();
     $dados = backend::buscar();
 ?>
 
@@ -25,6 +26,7 @@
              <a href="index.php">Início</a>
              <a href="formulario.php">Formulário</a>
              <a href="consulta.php">Consulta</a>
+             <a href="sair.php">Sair</a>
          </div>
      </div>
 

@@ -1,7 +1,7 @@
 <?php
     include_once 'backend.php';
+    Backend::controleAcessoVisitante();
     Backend::autenticar();
-    echo var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
