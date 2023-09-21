@@ -15,13 +15,14 @@ Class Backend {
             return $conexao;
     }
 
+
     public static function sessionStart() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
 
-    public static function controleAcessoVisitante() {
+    public static function restringirAcessoUsuario() {
         self::sessionStart();
         if (isset($_SESSION['idUsuario'])) {
             echo "<script>location.href='inicio.php';</script>";
@@ -29,7 +30,7 @@ Class Backend {
         }
     }
 
-    public static function controleAcessoVisitante() {
+    public static function restringirAcessoVisitante() {
         self::sessionStart();
         if (! isset($_SESSION['idUsuario'])) {
             echo "<script>location.href='index.php';</script>";
@@ -128,8 +129,11 @@ Class Backend {
             // Exibição do resultado das solicitações e redirecionamento para consulta.
             
             if (($solicitacaoSqlUsuarioExecutadaComSucesso && $solicitacaoSqlPessoaExecutadaComSucesso) == true) {
-                echo "Cadastro realizado com sucesso!";
+                echo "Cadastro realizado com sucesso! Você será redirecionado para a página de login.";
                 echo "<script>location.href='consulta.php';</script>";
+                ob_end_flush();
+                flush();
+                usleep(1500000);
                 exit();
             } else
                 echo "Erro na inserção dos dados': " . $conexao->error;

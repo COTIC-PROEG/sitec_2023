@@ -1,7 +1,7 @@
 <?php
     include_once 'backend.php';
-    Backend::controleAcessoUsuario();
-    $dados = backend::buscar();
+    Backend::restringirAcessoVisitante();
+    $dados = Backend::buscar();
 ?>
 
  <!DOCTYPE html>

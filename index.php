@@ -1,6 +1,6 @@
 <?php
     include_once 'backend.php';
-    Backend::controleAcessoVisitante();
+    Backend::restringirAcessoUsuario();
     Backend::autenticar();
 ?>
 

@@ -1,6 +1,6 @@
 <?php
     include_once 'backend.php';
-    Backend::controleAcessoUsuario();
+    Backend::restringirAcessoVisitante();
     $dados = Backend::buscar();
 ?>
 

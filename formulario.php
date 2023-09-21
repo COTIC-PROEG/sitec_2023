@@ -1,5 +1,6 @@
 <?php 
     include_once 'backend.php';
+    Backend::restringirAcessoUsuario();
     Backend::salvar();
 ?>
 
